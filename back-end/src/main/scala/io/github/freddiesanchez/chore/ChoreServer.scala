@@ -13,7 +13,7 @@ object ChoreServer extends StreamApp {
 
   def stream(args: List[String]): fs2.Stream[Task, Nothing] = 
     BlazeBuilder .bindHttp(port)
-      .mountService(ChoreService.service, "/")
+      .mountService(ChoreRoutes.service, "/")
       .serve
 }
 
