@@ -29,11 +29,11 @@ object ChoreRoutes {
       } yield (resp)
 
     /* create the chore */
-    /* curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"id":12, "name":"dishes", "description":"test", "rating":{"Hard":{}}}' -X POST http://127.0.0.1:8080/chore */
+    /* curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"name":"dishes", "description":"test", "rating":{"Hard":{}}}' -X POST http://127.0.0.1:8080/chore */
     case req @ POST -> Root / "chore"  =>  
       for {
         choreInput <- req.as(jsonOf[ChoreInput])
-        resp <- Ok(Chore(Random.nextInt, choreInput.name, choreInput.description, choreInput.rating).asJson)
+        resp <- Created(Chore(Random.nextInt, choreInput.name, choreInput.description, choreInput.rating).asJson)
       } yield (resp)
 
   }
