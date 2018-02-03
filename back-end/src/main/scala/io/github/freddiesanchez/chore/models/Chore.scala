@@ -2,7 +2,6 @@ package io.github.freddiesanchez.chore.models
 
 import java.util.UUID
 
-case class ChoreInput(name:String, description:String, rating: Rating)
-case class Chore(id: Int, name:String, description: String, rating: Rating) 
+case class Chore(id: Option[Long], name:String, description: String, rating: Rating) 
 
 

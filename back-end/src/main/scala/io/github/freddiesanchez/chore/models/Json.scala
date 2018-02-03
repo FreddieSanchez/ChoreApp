@@ -7,8 +7,6 @@ import org.http4s.circe._
 import io.circe.generic.semiauto._
 
 object Json {
-    implicit val ChoreInputEncoder: Encoder[ChoreInput] = deriveEncoder[ChoreInput]
-    implicit val ChoreIntputDecoder: Decoder[ChoreInput] = deriveDecoder[ChoreInput]
 
     implicit val ChoreEncoder: Encoder[Chore] = deriveEncoder[Chore]
     implicit val ChoreDecoder: Decoder[Chore] = deriveDecoder[Chore]
