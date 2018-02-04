@@ -17,12 +17,15 @@ class ChoreRepositoryTest extends FunSuite {
       , ""
       , ""
       )
+  val repo = new ChoreRepository(xa1)
+
   test("create & get") {
+
 
     val composed = 
       for {
-        _ <- ChoreRepository.createChoreTable 
-        chore1 <- ChoreRepository.addChore(Chore(None,"name","description", Easy))
+        _ <- repo.createChoreTable 
+        chore1 <- repo.addChore(Chore(None,"name","description", Easy))
       } yield chore1
 
     val chore: Option[Chore] = composed.transact(xa1).unsafePerformIO
@@ -39,9 +42,9 @@ class ChoreRepositoryTest extends FunSuite {
 
     val composed = 
       for {
-        _ <- ChoreRepository.createChoreTable 
-        choreOption <- ChoreRepository.addChore(Chore(None,"name","description", Easy))
-        chore1Option <- ChoreRepository.getChore(choreOption.get.id.get + 1)
+        _ <- repo.createChoreTable 
+        choreOption <- repo.addChore(Chore(None,"name","description", Easy))
+        chore1Option <- repo.getChore(choreOption.get.id.get + 1)
       } yield chore1Option
 
     val chore: Option[Chore] = composed.transact(xa1).unsafePerformIO
@@ -57,9 +60,9 @@ class ChoreRepositoryTest extends FunSuite {
 
     val composed = 
       for {
-        _ <- ChoreRepository.createChoreTable 
-        chore1 <- ChoreRepository.addChore(Chore(None,"name","description", Easy))
-        updatedChore <- ChoreRepository.updateChore(Chore(chore1.get.id,"updated_name","updated_description", Hard))
+        _ <- repo.createChoreTable 
+        chore1 <- repo.addChore(Chore(None,"name","description", Easy))
+        updatedChore <- repo.updateChore(Chore(chore1.get.id,"updated_name","updated_description", Hard))
       } yield updatedChore 
 
     val chore: Option[Chore] = composed.transact(xa1).unsafePerformIO

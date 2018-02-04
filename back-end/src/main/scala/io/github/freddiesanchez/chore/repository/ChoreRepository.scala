@@ -10,16 +10,13 @@ import io.github.freddiesanchez.chore.models._
 
 import scala.util.Random
 
-object ChoreRepository {
+class ChoreRepository(xa: Transactor[IOLite]) {
 
   private implicit val RatingMeta: Meta[Rating] = Meta[String].xmap(Rating.unsafeFromString, _.rating)
 
-	val xa: Transactor[IOLite] =
-		DriverManagerTransactor[IOLite]( "org.h2.Driver"
-			, "jdbc:h2:mem:db"
-			, ""
-			, ""
-			)
+  def run[A](query:ConnectionIO[A]):A = {
+    query.transact(xa).unsafePerformIO
+  }
 
   val createChoreTable:ConnectionIO[Int] =
     sql"""CREATE TABLE chore 
