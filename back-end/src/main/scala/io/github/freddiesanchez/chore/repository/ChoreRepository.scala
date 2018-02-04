@@ -35,12 +35,29 @@ object ChoreRepository {
   def dropChoreTable: ConnectionIO[Int]= 
     sql"""DROP TABLE chore""".update.run
 
-  def addChore(newChore:Chore):ConnectionIO[Long] = {
-    sql"""INSERT INTO chore (name, description, rating)
-          VALUES (
-                  ${newChore.name}, 
-                  ${newChore.description}, 
-                  ${newChore.rating})""".update.withUniqueGeneratedKeys[Long]("id")
+  def addChore(newChore:Chore):ConnectionIO[Option[Chore]] = {
+
+    for {
+      id <- sql"""INSERT INTO chore (name, description, rating)
+                  VALUES (
+                    ${newChore.name}, 
+                    ${newChore.description}, 
+                    ${newChore.rating})""".update.withUniqueGeneratedKeys[Long]("id")
+      chore <- getChore(id)
+    } yield (chore)
   }
+
+  def updateChore(chore:Chore):ConnectionIO[Option[Chore]] = {
+    
+    for {
+      id <- sql"""UPDATE chore
+                  SET name = ${chore.name},
+                      description = ${chore.description},
+                      rating = ${chore.rating}
+                   WHERE id = ${chore.id.get}""".update.run
+        chore <- getChore(id)
+      } yield (chore)
+    }
+
 
 }
