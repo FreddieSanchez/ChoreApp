@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chore App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <style>
+  
+  
+  .add-chore {
+    border: 1px solid #ced4da;
+    background-color:#f5f5f5;
+  }
+
+  .text-center {
+    text-align:center;
+  }
+
+  .container {
+    max-width:960px;
+    margin-right:auto;
+    margin-left:auto;
+    font-family:monospace;
+  }
+
+  input {
+    font-family:monospace;
+  }
+
+  .rounded {
+   padding:.375em .75em;
+   border:1px solid #ced4da;
+   border-radius: .33em;
+  }
+
+  .large-input {
+    word-wrap: normal;
+    resize: none;
+    font-family:monospace;
+
+  }
+
+  .form-element {
+    width:50%;
+  }
+
+  .form-container {
+    width:100%;
+
+  }
+
+  .button-blue {
+    font-family:monospace;
+    background-color:#0069d9;
+    color:#ffffff;
+    padding:10px;
+    font-size: 1.25rem;
+
+  }
+  </style>
+
+  <body>
+
+    <!-- start container -->
+    <div class="container text-center"> 
+      
+      <div class=header"><h1>Chore App</h1></div>
+
+      <div class="add-chore rounded">
+        <form id="chore-add-form" class="form-container">
+
+          <p>
+          <input type="text" class="rounded form-element" name="chore-name-input" placeholder="Chore name..."></input>
+          <div id="chore-name-error" class="error"> </div>
+          </p>
+
+
+          <p>
+          <input type="text" class="rounded form-element" name="chore-dificulty-input" placeholder="Chore difficulty..."></input>
+          <div id="chore-difficult-error" class="error"> </div>
+          </p>
+
+          <p>
+          <textarea class="large-input rounded form-element" form="chore-add-form" placeholder="Chore description..."></textarea>
+          <div id="chore-description-error" class="error"> </div>
+          </p>
+
+          <p>
+          <label class="input-label"></label>
+          <input type="submit" class="rounded button-blue form-element" value="Add">
+          </p>
+        </form>
+      </div>
+
+      <!-- all chores page-->
+      <div class="all-chores page">
+
+      </div>
+
+      <!-- single chores page-->
+      <div class="single page">
+      </div>
+
+    </div>
+    <!-- end container -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
