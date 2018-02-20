@@ -18,15 +18,14 @@ object ChoreServer extends StreamApp {
   val port = envOrNone("HTTP_PORT").fold(8080)(_.toInt)
 
 
-	val xa: Transactor[IOLite] =
-		DriverManagerTransactor[IOLite]( "org.h2.Driver"
-			, "jdbc:h2:file:./data/test"
-			, ""
-			, ""
-			)
+  val xa: Transactor[IOLite] =
+    DriverManagerTransactor[IOLite]( "org.h2.Driver"
+      , "jdbc:h2:file:./data/test"
+      , ""
+      , ""
+      )
 
   val repo = new ChoreRepository(xa)
-  repo.run(repo.createChoreTable)
 
   def stream(args: List[String]): fs2.Stream[Task, Nothing] = 
     BlazeBuilder .bindHttp(port)

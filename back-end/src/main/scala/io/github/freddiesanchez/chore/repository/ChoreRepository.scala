@@ -3,7 +3,7 @@ package io.github.freddiesanchez.chore.repository
 import doobie.imports._
 import doobie.util.transactor.Transactor
 
-import cats._, cats.data._, cats.implicits._
+
 import fs2.interop.cats._
 
 import io.github.freddiesanchez.chore.models._
@@ -13,6 +13,7 @@ import scala.util.Random
 class ChoreRepository(xa: Transactor[IOLite]) {
 
   private implicit val RatingMeta: Meta[Rating] = Meta[String].xmap(Rating.unsafeFromString, _.rating)
+
 
   def run[A](query:ConnectionIO[A]):A = {
     query.transact(xa).unsafePerformIO

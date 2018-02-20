@@ -37,14 +37,13 @@ class ChoreRoutes(repository: ChoreRepository) {
 
     /* update the chore by ID */
     /* curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"id":12, "name":"dishes", "description":"test", "rating":{"Hard":{}}}' -X PUT http://127.0.0.1:8080/chore/12 */
-    case req @ PUT -> Root / "chore" / LongVar(id) =>  {
-        for {
-          chore <- req.as(jsonOf[Chore])
-          choreIOOption = repository.updateChore(chore)
-          choreOption   = repository.run(choreIOOption)
-          resp <- Created(choreOption.asJson)
-        } yield ( resp)
-    }
+    case req @ PUT -> Root / "chore" / LongVar(id) =>
+      for {
+        chore <- req.as(jsonOf[Chore])
+        choreIOOption = repository.updateChore(chore)
+        choreOption   = repository.run(choreIOOption)
+        resp <- Created(choreOption.asJson)
+      } yield ( resp)
 
     /* create the chore */
     /* curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{"name":"dishes", "description":"test", "rating":{"Hard":{}}}' -X POST http://127.0.0.1:8080/chore */
@@ -55,6 +54,5 @@ class ChoreRoutes(repository: ChoreRepository) {
         choreOption   = repository.run(choreIOOption)
         resp <- Created(choreOption.asJson)
       } yield (resp)
-
   }
 }
